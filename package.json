@@ -1,0 +1,25 @@
+{
+  "name": "date-picker",
+  "version": "1.0.0",
+  "description": "date picker selected date",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivumohan/date-picker.git"
+  },
+  "keywords": [
+    "dp"
+  ],
+  "author": "sivadharshini",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivumohan/date-picker/issues"
+  },
+  "homepage": "https://github.com/shivumohan/date-picker#readme"
+}
