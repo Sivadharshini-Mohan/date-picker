@@ -1,4 +1,5 @@
 
+const datePicker = () => {
 const datePickerElement = document.querySelector(".date-picker-container");
 const selectedDateElement = document.querySelector(".selected-date");
 const datesElement = document.querySelector(".dates-container");
@@ -164,6 +165,7 @@ function populateDates() {
     }
 
   }
+}
 }
 
 module.exports = date-picker
