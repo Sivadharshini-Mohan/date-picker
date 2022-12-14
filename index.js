@@ -167,5 +167,4 @@ function populateDates() {
   }
 }
 }
-
-module.exports = date-picker
+export default datePicker;
