@@ -1,66 +1,55 @@
-
-const datePicker = () => {
-const datePickerElement = document.querySelector(".date-picker-container");
-const selectedDateElement = document.querySelector(".selected-date");
-const datesElement = document.querySelector(".dates-container");
-const monthElement = document.querySelector("#month");
-const nextMonthelement = document.querySelector(".next-month");
-const preMonthElement = document.querySelector(".prev-month");
-const daysElement = document.querySelector(".days-container");
+const datePickerEle = document.querySelector(".date-picker-container");
+const selectedDateEle = document.querySelector(" .selected-date");
+const datesEle = document.querySelector(".dates-container");
+const monthEle = document.querySelector(".month .month-item");
+const nextMonthEle = document.querySelector(".month .next-month");
+const prevMonthEle = document.querySelector(".month .prev-month");
+const daysEle = document.querySelector(".days-container");
 
 const months = [
-  "JAN",
-  "FEB",
-  "MAR",
-  "APRIL",
-  "MAY",
-  "JUNE",
-  "JULY",
-  "AUG",
-  "SEP",
-  "OCT",
-  "NOV",
-  "DEC"
-]
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 let date = new Date();
-let today = date.getDate();
-console.log(today)
-let month = date.getMonth() + 1;
-console.log(month);
+let day = date.getDate();
+let month = date.getMonth();
 let year = date.getFullYear();
-console.log(year);
 
 let selectedDate = date;
-let selectedDay = today;
+let selectedDay = day;
 let selectedMonth = month;
 let selectedYear = year;
 
-if (monthElement != null) {
-  monthElement.innerHTML = months[month] + " " + year
+if(monthEle != null){
+  monthEle.textContent = months[month] + " " + year;
 }
 
-if (selectedDateElement != null) {
-  selectedDateElement.innerHTML = formatDate(selectedDate);
-  selectedDateElement.dataset.value = selectedDate;
-
+if(selectedDateEle != null){
+  selectedDateEle.textContent = formatDate(date);
+  selectedDateEle.dataset.value = selectedDate;
 }
+
 
 populateDates();
 
-if (datePickerElement != null && nextMonthelement != null && preMonthElement != null) {
-  datePickerElement.addEventListener("click", toggleDatePicker);
-  nextMonthelement.addEventListener("click", goToNextMonth);
-  preMonthElement.addEventListener("click", goToPrevMonth);
-}
-
+datePickerEle.addEventListener("click", toggleDatePicker);
+nextMonthEle.addEventListener("click", goToNextMonth);
+prevMonthEle.addEventListener("click", goToPrevMonth);
 
 function toggleDatePicker(e) {
   if (!checkClassExist(e.path, "dates-container")) {
-    if (datesElement) {
-      datesElement.classList.toggle("active");
-    }
-
+    datesEle.classList.toggle("active");
   }
 }
 
@@ -80,10 +69,8 @@ function goToNextMonth() {
     month = 0;
     year++;
   }
-  if (monthElement != null) {
-    monthElement.textContent = months[month] + " " + year;
-  }
 
+  monthEle.textContent = months[month] + " " + year;
   populateDates();
 }
 
@@ -93,49 +80,25 @@ function goToPrevMonth() {
     month = 11;
     year--;
   }
-  if (monthElement != null) {
-    monthElement.textContent = months[month] + " " + year;
-  }
-
+  monthEle.textContent = months[month] + " " + year;
   populateDates();
 }
 
-function formatDate(selectedDate) {
-  let day = selectedDate.getDate();
-  if (day < 10) {
-    day = "0" + day;
-  }
-
-  let month = selectedDate.getMonth() + 1;
-  if (month < 10) {
-    month = "0" + month;
-  }
-
-  let year = selectedDate.getFullYear();
-
-  return day + " / " + month + " / " + year;
-}
-
 function populateDates() {
+  daysEle.innerHTML = "";
   let totalDays;
-  if (daysElement != null) {
-    daysElement.innerHTML = ""
 
-
-    if (month == 1) {
-      totalDays = 28;
-    } else if (month % 2 === 0) {
-      totalDays = 31;
-    } else {
-      totalDays = 30;
-    }
+  if (month == 1) {
+    totalDays = 28;
+  } else if (month % 2 === 0) {
+    totalDays = 31;
+  } else {
+    totalDays = 30;
   }
-
 
   for (let i = 0; i < totalDays; i++) {
     const dayElement = document.createElement("div");
     dayElement.classList.add("day");
-
     dayElement.textContent = i + 1;
 
     if (
@@ -151,20 +114,29 @@ function populateDates() {
       selectedDay = i + 1;
       selectedMonth = month;
       selectedYear = year;
-      if (selectedDateElement != null) {
-        selectedDateElement.textContent = formatDate(selectedDate);
-        // selectedDateElement.dataset.value = selectedDate;
-      }
 
+      selectedDateEle.textContent = formatDate(selectedDate);
+      selectedDateEle.dataset.value = selectedDate;
 
       populateDates();
     });
 
-    if (daysElement != null) {
-      daysElement.appendChild(dayElement);
-    }
-
+    daysEle.appendChild(dayElement);
   }
 }
+
+function formatDate(selectedDate) {
+  let day = selectedDate.getDate();
+  if (day < 10) {
+    day = "0" + day;
+  }
+
+  let month = selectedDate.getMonth() ;
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  let year = selectedDate.getFullYear();
+
+  return day + " / " + month + " / " + year;
 }
-export default datePicker;
